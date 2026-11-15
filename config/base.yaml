@@ -1,0 +1,53 @@
+# 全项目的基础配置。只放已经决定的参数；每个参数的决定日期和理由见 research_log.md。
+
+paths:
+  # 日K只读快照：不修改、不覆盖，清洗结果另存到 data/clean
+  daily_snapshot: data/a_share_daily_2020-01-02_2026-10-16.parquet
+  raw_dir: data/raw
+  clean_dir: data/clean
+  wide_dir: data/wide
+
+# 时间切分（2026-11-14 决定：微盘股崩盘放验证期）。区间两端都包含。
+splits:
+  warmup:     {start: "2020-01-02", end: "2020-06-30"}
+  research:   {start: "2020-07-01", end: "2023-06-30"}
+  validation: {start: "2023-07-01", end: "2024-06-30"}
+  locked:     {start: "2024-07-01", end: "2026-10-16"}
+
+lock:
+  # 只有用户明确说「开始最终评估」之后才能改成 true
+  final_evaluation_unlocked: false
+  # 锁定期只允许结构性检查（重复、缺失、截止日、涨跌停校验、成分名单），每次读取都记到这个文件
+  access_log: locked_access.csv
+
+# 基准（2026-11-14 决定：方案 C）
+benchmarks:
+  main: "sh.000852"      # 中证1000，主产品
+  control: "sh.000905"   # 中证500，对照
+  pending: "932000"      # 中证2000，等中证1000 重建通过后再决定做不做
+
+# 第 1 步的补充下载（全部存到 data/raw 下，不改日K快照）
+download:
+  start: "2020-01-02"
+  end: "2026-10-16"
+  index_baostock: ["sh.000300", "sh.000905", "sh.000852", "sz.399303"]   # 399303 = 国证2000
+  index_csindex: ["000300", "000905", "000852", "932000", "H00300", "H00905", "H00852"]  # H 开头 = 全收益
+  constituents: ["hs300", "zz500"]
+  weights_csindex: ["000300", "000905", "000852", "932000"]   # 只有最新一期权重
+  futures:
+    IF: "2001"    # 品种: 第一个要下载的合约月份（YYMM）
+    IC: "2001"
+    IM: "2208"
+  futures_last_contract: "2706"
+  check_sample_size: 20
+  check_sample_seed: 20261114
+
+# 清洗规则
+clean:
+  # 代码变更：新代码在 last_old_date 及之前的行用旧代码的数据替换，然后删除旧代码
+  code_changes:
+    - {old: "sz.300114", new: "sz.302132", last_old_date: "2025-02-14"}
+  float_shares_median_window: 5     # 流通股本：最近 5 个有成交的交易日取中位数（只用过去）
+  wide_fields: [open, high, low, close, close_raw, open_raw, high_raw, low_raw, preclose_raw,
+                vwap_raw, volume, amount, turn, float_mcap, up_limit, down_limit,
+                suspended, isST, day_no, peTTM, pbMRQ]

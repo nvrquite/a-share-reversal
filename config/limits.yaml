@@ -1,0 +1,28 @@
+# 涨跌幅限制规则表。来源和核实状态见 research_log.md（2026-11-14）。
+main:
+  ratio: 0.10
+  st_ratio_before: 0.05            # 主板 ST / *ST
+  st_change_date: "2026-07-06"     # 这一天起主板 ST 改为 10%
+  st_ratio_after: 0.10
+  registration_date: "2023-04-10"  # 这一天起上市的主板新股，前 5 日无涨跌幅限制
+  # 未完成股改的 S 股：全程按 5%（数据验证：sh.600182 在 2020–2026 每年最大涨跌幅都是 5.0%）
+  five_percent_codes: ["sh.600182"]
+chinext:
+  change_date: "2020-08-24"        # 这一天起创业板全部股票（含 ST）为 20%
+  ratio_before: 0.10
+  st_ratio_before: 0.05
+  ratio_after: 0.20
+star:
+  ratio: 0.20
+new_stock:
+  no_limit_days: 5                 # 注册制新股上市前 5 个交易日无限制
+  # 核准制新股首日的限制（+44% / -36%）以发行价为基数，数据里没有发行价，所以首日一律不算涨跌停价
+delisting:
+  max_days: 30                          # 退市整理期最长 30 个交易日（旧规）；新规为 15 个
+  first_day_no_limit_from: "2020-12-31" # 退市新规施行后，整理期首日无涨跌幅限制
+# 逐条核对后确认的无涨跌幅限制日（恢复上市首日等，规则无法从数据推出）
+no_limit_events:
+  - {code: "sz.000670", date: "2022-08-22", reason: "恢复上市首日"}
+  - {code: "sz.000792", date: "2021-08-10", reason: "恢复上市首日"}
+check:
+  tolerance: 0.01                 # 最高价超过涨停价、或最低价低于跌停价超过这个数才算违规

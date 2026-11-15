@@ -1,0 +1,20 @@
+time,caller,columns,reason
+2026-11-14T16:20:00,manual:claude_adhoc_check,date|code,核对快照起止日期和每只股票的最后一天（loader 建立之前的手工检查）
+2026-11-14T17:46:04,profile1.py:<module>,all,第1步数据质量：全区间结构性画像（缺失、重复、停牌、截止日、复权一致性）
+2026-11-14T17:56:02,clean.py:build_clean,all,清洗：生成全区间的 clean 数据（不计算信号与收益的关系）
+2026-11-14T18:00:49,clean.py:build_clean,all,清洗：生成全区间的 clean 数据（不计算信号与收益的关系）
+2026-11-14T18:02:22,clean.py:build_clean,all,清洗：生成全区间的 clean 数据（不计算信号与收益的关系）
+2026-11-14T18:03:40,clean.py:build_clean,all,清洗：生成全区间的 clean 数据（不计算信号与收益的关系）
+2026-11-14T18:06:13,p11.py:<module>,date|code|close|close_raw|open_raw|high_raw|low_raw|preclose_raw|suspended|adj_factor,第1步质量检查：抽样核对推算的不复权价、前收盘价、后复权收益
+2026-11-14T18:25:15,p13.py:<module>,date|code|close_raw|adj_factor|suspended|preclose_raw,第1步质量检查：复权因子变动与真实除权除息日对账
+2026-11-14T18:31:39,p13.py:<module>,date|code|close_raw|adj_factor|suspended|preclose_raw,第1步质量检查：复权因子变动与真实除权除息日对账
+2026-11-14T23:41:07,qa.py:build_report,all,质量报告：全区间结构性检查
+2026-11-14T23:41:11,qa.py:sec_duplicates,date|code|close_raw|volume|amount,质量报告：查找重复代码对
+2026-11-15T01:34:37,p15.py:<module>,date|code|close|close_raw|tradestatus,第1步质量检查：用交易所前收盘价核实205只股票的后复权收益
+2026-11-15T01:35:21,clean.py:build_clean,all,清洗：生成全区间的 clean 数据（不计算信号与收益的关系）
+2026-11-15T14:43:21,qa.py:build_report,all,质量报告：全区间结构性检查
+2026-11-15T14:43:24,qa.py:sec_duplicates,date|code|close_raw|volume|amount,质量报告：查找重复代码对
+2026-11-15T14:43:56,qa.py:_verify_text,date|code|open|high|low|close|close_raw,质量报告：核实后复权收益
+2026-11-15T14:44:47,qa.py:build_report,all,质量报告：全区间结构性检查
+2026-11-15T14:44:50,qa.py:sec_duplicates,date|code|close_raw|volume|amount,质量报告：查找重复代码对
+2026-11-15T14:45:18,qa.py:_verify_text,date|code|open|high|low|close|close_raw,质量报告：核实后复权收益

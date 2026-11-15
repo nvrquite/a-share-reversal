@@ -1,0 +1,24 @@
+[project]
+name = "a-share-reversal"
+version = "0.1.0"
+description = "A股可交易短期反转：从纸面收益到指数增强实盘"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pandas>=2.2",
+    "pyarrow>=17",
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "statsmodels>=0.14",
+    "matplotlib>=3.9",
+    "pyyaml>=6.0",
+    "cvxpy>=1.5",
+    "hmmlearn>=0.3.3",
+    "baostock>=0.8.8",
+    "akshare>=1.15",
+    "pytest>=8.0",
+    "tabulate>=0.10.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
